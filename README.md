@@ -1,20 +1,21 @@
-# HnProtocol
+# HN Protocol Server
 
-**TODO: Add description**
+HN Protocol Server written for a blog post
 
-## Installation
+## Setup
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+* Erlang 18.2
+* Elixir 1.2
+* Install dependencies: `mix deps.get`
 
-  1. Add hn_protocol to your list of dependencies in `mix.exs`:
+## Usage
 
-        def deps do
-          [{:hn_protocol, "~> 0.0.1"}]
-        end
+```
+$ mix hn_protocol.server
+```
 
-  2. Ensure hn_protocol is started before your application:
+This above command will start the server on port 9000.
 
-        def application do
-          [applications: [:hn_protocol]]
-        end
-
+```
+$ telnet localhost 9000
+```
