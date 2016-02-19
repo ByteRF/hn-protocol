@@ -88,7 +88,7 @@ defmodule HnProtocol.ProtocolServer do
   end
 
 
-  def welcome_msg do
+  defp welcome_msg do
     "WELCOME HN Protocol Server v#{Mix.Project.config[:version]}"
   end
 
