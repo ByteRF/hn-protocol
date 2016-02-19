@@ -11,7 +11,11 @@ defmodule HnProtocol do
       # worker(HnProtocol.Worker, [arg1, arg2, arg3]),
     ]
 
-    start_ranch
+    if Application.get_env(:hn_protocol, :server) do
+      port = 9000
+      IO.puts "Starting server on port #{port}"
+      start_ranch port
+    end
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
@@ -20,8 +24,17 @@ defmodule HnProtocol do
   end
 
 
-  def start_ranch do
-    protocol_options = []
-    {:ok, _} = :ranch.start_listener(:hn_protocol, 1, :ranch_tcp, [port: 9000], HnProtocol.ProtocolServer, protocol_options)
+  def start_ranch(port) do
+    protocol_opts = []
+    transport_opts = [port: port]
+    number_of_acceptors = 100
+    {:ok, _} = :ranch.start_listener(
+      :hn_protocol,
+      number_of_acceptors,
+      :ranch_tcp,
+      transport_opts,
+      HnProtocol.ProtocolServer,
+      protocol_opts
+    )
   end
 end
