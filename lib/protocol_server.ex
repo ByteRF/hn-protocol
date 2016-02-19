@@ -14,6 +14,8 @@ defmodule HnProtocol.ProtocolServer do
     :ok = :proc_lib.init_ack {:ok, self}
     :ok = :ranch.accept_ack ref
     :ok = transport.setopts socket, [active: :once]
+    :ok = send_data transport, socket, welcome_msg
+
 
     state = %{socket: socket, transport: transport}
     :gen_server.enter_loop __MODULE__, [], state, @timeout
@@ -35,7 +37,7 @@ defmodule HnProtocol.ProtocolServer do
       :quit ->
         {:stop, :normal, state}
       value ->
-        :ok = transport.send socket, "#{value}\r\n"
+        send_data transport, socket, value
         {:noreply, state, @timeout}
     end
   end
@@ -83,5 +85,15 @@ defmodule HnProtocol.ProtocolServer do
 
   def cmd(_) do
     "INVALID"
+  end
+
+
+  def welcome_msg do
+    "WELCOME HN Protocol Server v#{Mix.Project.config[:version]}"
+  end
+
+
+  defp send_data(transport, socket, data) do
+    :ok = transport.send socket, "#{data}\r\n"
   end
 end
