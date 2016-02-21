@@ -23,7 +23,7 @@ defmodule HnProtocol.ProtocolServer do
   end
 
 
-  def handle_info({:tcp, socket, "quit\r\n"}, state=%{socket: socket, transport: transport}) do
+  def handle_info({:tcp, _socket, "quit\r\n"}, state) do
     {:stop, :normal, state}
   end
 
@@ -63,7 +63,7 @@ defmodule HnProtocol.ProtocolServer do
 
   def cmd(["TOP"]) do
     {:ok, req} = HTTPoison.get("#{@api_base_url}/topstories.json")
-    story_ids = Poison.decode!(req.body)
+    Poison.decode!(req.body)
     |> Enum.take(10)
     |> Enum.join("\r\n")
   end
@@ -71,7 +71,7 @@ defmodule HnProtocol.ProtocolServer do
 
   def cmd(["ASK"]) do
     {:ok, req} = HTTPoison.get("#{@api_base_url}/askstories.json")
-    story_ids = Poison.decode!(req.body)
+    Poison.decode!(req.body)
     |> Enum.take(10)
     |> Enum.join("\r\n")
   end
