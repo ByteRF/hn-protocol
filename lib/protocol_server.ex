@@ -2,6 +2,7 @@ defmodule HnProtocol.ProtocolServer do
   use GenServer
   @behaviour :ranch_protocol
   @timeout 100000
+  @project_version Mix.Project.config[:version]
   @api_base_url "https://hacker-news.firebaseio.com/v0"
 
 
@@ -89,7 +90,7 @@ defmodule HnProtocol.ProtocolServer do
 
 
   defp welcome_msg do
-    "WELCOME HN Protocol Server v#{Mix.Project.config[:version]}"
+    "WELCOME HN Protocol Server v#{@project_version}"
   end
 
 
