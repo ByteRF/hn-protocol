@@ -14,8 +14,15 @@ defmodule HnProtocol.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :ranch],
-     mod: {HnProtocol, []}]
+    [
+      applications: [
+        :logger,
+        :httpoison,
+        :ranch,
+        :poison
+      ],
+      mod: {HnProtocol, []}
+    ]
   end
 
   # Dependencies can be Hex packages:
