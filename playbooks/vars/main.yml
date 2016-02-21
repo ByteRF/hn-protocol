@@ -1,0 +1,4 @@
+---
+app_name: hn_protocol
+repo_url: "git@github.com:ByteRF/hn-protocol.git"
+app_port: 3001
