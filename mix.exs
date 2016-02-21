@@ -31,7 +31,13 @@ defmodule HnProtocol.Mixfile do
     [
       {:poison, "~> 2.0"},
       {:httpoison, "~> 0.8"},
-      {:ranch, "~> 1.2"}
+      {:ranch, "~> 1.2"},
+      {:exrm, "~> 1.0.0-rc8"},
+
+      # TODO remove this once new version of relx is released
+      # https://github.com/bitwalker/exrm/issues/294
+      {:cf, "~> 0.2", override: true},
+      {:erlware_commons, github: "erlware/erlware_commons", override: true}
     ]
   end
 end
