@@ -84,6 +84,11 @@ defmodule HnProtocol.ProtocolServer do
   end
 
 
+  def cmd(["PING"]) do
+    "PONG"
+  end
+
+
   def cmd(_) do
     "INVALID"
   end
